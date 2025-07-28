@@ -8,6 +8,13 @@ SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Instalando Hostium Toolkit desde ${SOURCE_DIR}..."
 
+# 🧹 Limpiar carpeta de instalación temporal si existe
+if [[ "$SOURCE_DIR" =~ /root ]]; then
+    echo "🧹 Eliminando instalación previa del plugin..."
+    rm -rf "$PLUGIN_DIR"
+fi
+
+
 # Eliminar carpeta existente si ya está
 if [ -d "$PLUGIN_DIR" ]; then
     echo "Eliminando carpeta anterior en $PLUGIN_DIR..."
@@ -41,3 +48,8 @@ echo "Agregando entrada al menú WHM en ${ADDONFEATURES_FILE}..."
 mkdir -p "$ADDONFEATURES_DIR"
 cp "${SOURCE_DIR}/${PLUGIN_NAME}.addonfeatures.conf" "$ADDONFEATURES_FILE"
 chmod 644 "$ADDONFEATURES_FILE"
+# 🧼 Eliminando carpeta de origen si es un directorio temporal bajo /root
+if [[ "$SOURCE_DIR" =~ /root ]]; then
+    echo "🧼 Eliminando carpeta de instalación temporal: $SOURCE_DIR"
+    cd /root && rm -rf "$SOURCE_DIR"
+fi
