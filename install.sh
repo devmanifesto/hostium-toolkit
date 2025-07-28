@@ -32,3 +32,12 @@ chmod 644 "$CONF_FILE"
 /scripts/restartsrv_cpsrvd
 
 echo "Instalación completada. Verificá en WHM > Plugins > Hostium Toolkit."
+
+# Copiar entrada al menú de WHM (addonfeatures)
+ADDONFEATURES_DIR="/usr/local/cpanel/whostmgr/addonfeatures"
+ADDONFEATURES_FILE="${ADDONFEATURES_DIR}/${PLUGIN_NAME}.conf"
+
+echo "Agregando entrada al menú WHM en ${ADDONFEATURES_FILE}..."
+mkdir -p "$ADDONFEATURES_DIR"
+cp "${SOURCE_DIR}/${PLUGIN_NAME}.addonfeatures.conf" "$ADDONFEATURES_FILE"
+chmod 644 "$ADDONFEATURES_FILE"
