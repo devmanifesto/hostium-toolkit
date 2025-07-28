@@ -8,7 +8,13 @@ SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Instalando Hostium Toolkit desde ${SOURCE_DIR}..."
 
-# Crear carpeta del plugin si no existe
+# Eliminar carpeta existente si ya está
+if [ -d "$PLUGIN_DIR" ]; then
+    echo "Eliminando carpeta anterior en $PLUGIN_DIR..."
+    rm -rf "$PLUGIN_DIR"
+fi
+
+# Crear carpeta del plugin
 mkdir -p "$PLUGIN_DIR"
 
 # Copiar el CGI
